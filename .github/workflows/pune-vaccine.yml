@@ -1,30 +1,23 @@
-# This is a basic workflow to help you get started with Actions
 name: PuneVaccine
 
 on:
   push:
     paths:
       - .github/workflows/pune-vaccine.yml # Only run a new workflow every time this file (pune-vaccine.yaml) file changes
-  workflow_dispatch: # Required even though this is currently empty
+  workflow_dispatch:
   schedule:
-    - cron: '*/1 * * * *' # Run this workflow every 5 minutes
+    - cron: '*/1 * * * *' # Run this workflow every 1 minutes
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-       # The first step is to check out the repository so it can read the files inside of it and do other operations
       - name: Check out repo
         uses: actions/checkout@v2
 
-      # The third step is a Flat Action step. We fetch the data in the http_url and save it as downloaded_filename
       - name: Fetch data 
         uses: githubocto/flat@v2
         with:
           http_url: https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=363&date=20-05-2021 # The data to fetch every 5 minutes
-          downloaded_filename: pune-vaccine.json # The http_url gets saved and renamed in our repository as btc-price.json
+          downloaded_filename: pune-vaccine.json
